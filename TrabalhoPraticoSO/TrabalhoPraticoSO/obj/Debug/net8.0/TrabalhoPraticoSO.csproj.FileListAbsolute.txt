@@ -1,0 +1,14 @@
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.exe
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.deps.json
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.runtimeconfig.json
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.dll
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.pdb
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.AssemblyInfoInputs.cache
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.AssemblyInfo.cs
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.csproj.CoreCompileInputs.cache
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.dll
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\refint\TrabalhoPraticoSO.dll
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.pdb
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.genruntimeconfig.cache
+C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\ref\TrabalhoPraticoSO.dll
