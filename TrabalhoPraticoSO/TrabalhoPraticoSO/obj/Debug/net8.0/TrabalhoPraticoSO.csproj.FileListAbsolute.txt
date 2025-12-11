@@ -12,3 +12,18 @@ C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8
 C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.pdb
 C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.genruntimeconfig.cache
 C:\Users\Windows\source\repos\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\ref\TrabalhoPraticoSO.dll
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.AssemblyInfoInputs.cache
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.AssemblyInfo.cs
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.csproj.CoreCompileInputs.cache
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.sourcelink.json
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.dll
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\refint\TrabalhoPraticoSO.dll
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.pdb
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.exe
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.deps.json
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.runtimeconfig.json
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.dll
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\bin\Debug\net8.0\TrabalhoPraticoSO.pdb
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\TrabalhoPraticoSO.genruntimeconfig.cache
+D:\Users\Windows\Documents\git kraken\Trabalho-Pratico-SO\TrabalhoPraticoSO\TrabalhoPraticoSO\obj\Debug\net8.0\ref\TrabalhoPraticoSO.dll
