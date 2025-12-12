@@ -7,7 +7,6 @@ namespace DemandPagingSimulator
     {
         static void Main(string[] args)
         {
-            //MemoryManager memoryManager = new MemoryManager();
             int maxFrames = 3; // Definindo o número máximo de frames na memória
 
             int[] pageReferences = { 1, 2, 3, 1, 4, 2, 1, 3, 2, 1, 4 };
@@ -55,6 +54,20 @@ namespace DemandPagingSimulator
                 currentTimeRAND++;
             }
 
+            //OPT
+            MemoryManager memoryManagerOPT = new MemoryManager();
+            memoryManagerOPT.maxFrames = maxFrames;
+
+            int currentTimeOPT = 0;
+
+            Console.WriteLine("OPT:");
+            foreach (int pageId in pageReferences)
+            {
+                memoryManagerOPT.accessPageOPT(pageId, currentTimeOPT, pageReferences);
+                memoryManagerOPT.PrintFrames();
+                currentTimeOPT++;
+            }
+
         }
 
         class PageEntry
@@ -62,11 +75,17 @@ namespace DemandPagingSimulator
             public int id;
             public int loadTime;//FIFO
             public int lastAccessedTime;//LRU
-            public int nextAccessedTime;//OPT 
         }
 
-        class MemoryManager
+        class MemoryManager 
         {
+            private Random random = new Random();
+
+            //contador de Page Faults
+            public int pageFaultCount = 0;
+
+
+            //print frames in memory
             public void PrintFrames()
             {
                 Console.Write(" ");
@@ -77,63 +96,11 @@ namespace DemandPagingSimulator
                 Console.WriteLine();
             }
 
+
+
             public int maxFrames;
             public List<PageEntry> frames = new List<PageEntry>();
 
-            //Meto para RAND
-            public void accessPageRAND(int pageId, int currentTime)
-            {
-                PageEntry found = null;
-
-                // Verifica se a página já está na memória
-                foreach (var page in frames)
-                {
-                    if (page.id == pageId)
-                    {
-                        found = page;
-                        break;
-                    }
-                }
-
-                if (found != null)
-                {
-                    found.lastAccessedTime = currentTime;
-                    return;
-                }
-
-                //PAGE FAULT
-
-                //ainda há espaço na memória
-                if (frames.Count < maxFrames)
-                {
-                    PageEntry newPage = new PageEntry();
-                    newPage.id = pageId;
-                    newPage.loadTime = currentTime;
-                    newPage.lastAccessedTime = currentTime;
-
-                    frames.Add(newPage);
-                    return;
-                }
-
-                // memória cheia, precisa substituir uma página
-                Random random = new Random();
-
-                int victimIndex = random.Next(frames.Count);
-                PageEntry victim = frames[victimIndex];
-
-                //remove a página vítima
-                frames.Remove(victim);
-
-                //adiciona a nova página
-                PageEntry replacementPage = new PageEntry();
-                replacementPage.id = pageId;
-                replacementPage.loadTime = currentTime;
-                replacementPage.lastAccessedTime = currentTime;
-
-                frames.Add(replacementPage);
-                return;
-
-            }
 
             //Metodo para FIFO
             public void accessPageFIFO(int pageId, int currentTime)
@@ -157,6 +124,8 @@ namespace DemandPagingSimulator
                 }
 
                 //PAGE FAULT
+                pageFaultCount++;
+
 
                 //ainda há espaço na memória
                 if (frames.Count < maxFrames)
@@ -215,6 +184,7 @@ namespace DemandPagingSimulator
                 }
 
                 //PAGE FAULT
+                pageFaultCount++;
 
                 //ainda há espaço na memória
                 if (frames.Count < maxFrames)
@@ -249,6 +219,142 @@ namespace DemandPagingSimulator
 
                 frames.Add(replacementPage);
 
+            }
+
+            //Meto para RAND
+            public void accessPageRAND(int pageId, int currentTime)
+            {
+                PageEntry found = null;
+
+                // Verifica se a página já está na memória
+                foreach (var page in frames)
+                {
+                    if (page.id == pageId)
+                    {
+                        found = page;
+                        break;
+                    }
+                }
+
+                if (found != null)
+                {
+                    found.lastAccessedTime = currentTime;
+                    return;
+                }
+
+                //PAGE FAULT
+                pageFaultCount++;
+
+                //ainda há espaço na memória
+                if (frames.Count < maxFrames)
+                {
+                    PageEntry newPage = new PageEntry();
+                    newPage.id = pageId;
+                    newPage.loadTime = currentTime;
+                    newPage.lastAccessedTime = currentTime;
+
+                    frames.Add(newPage);
+                    return;
+                }
+
+                // memória cheia, precisa substituir uma página
+                
+
+                int victimIndex = random.Next(frames.Count);
+                PageEntry victim = frames[victimIndex];
+
+                //remove a página vítima
+                frames.Remove(victim);
+
+                //adiciona a nova página
+                PageEntry replacementPage = new PageEntry();
+                replacementPage.id = pageId;
+                replacementPage.loadTime = currentTime;
+                replacementPage.lastAccessedTime = currentTime;
+
+                frames.Add(replacementPage);
+                return;
+
+            }
+
+            //Metodo para OPT
+            public void accessPageOPT(int pageId, int currentTime, int[] references)
+            {
+                PageEntry found = null;
+
+                // Verifica se a página já está na memória
+                foreach (var page in frames)
+                {
+                    if (page.id == pageId)
+                    {
+                        found = page;
+                        break;
+                    }
+                }
+
+                if (found != null)
+                {
+                    found.lastAccessedTime = currentTime;
+                    return;
+                }
+
+                //PAGE FAULT
+                pageFaultCount++;
+
+                //ainda há espaço na memória
+                if (frames.Count < maxFrames)
+                {
+                    PageEntry newPage = new PageEntry();
+                    newPage.id = pageId;
+                    newPage.loadTime = currentTime;
+                    newPage.lastAccessedTime = currentTime;
+
+                    frames.Add(newPage);
+                    return;
+                }
+
+                // memória cheia, precisa substituir uma página
+                int farthestAccessTime = -1;
+                PageEntry victim = null;
+
+                foreach (var page in frames)
+                {
+                    int nextUseTime = -1; // -1 significa que nunca será usada novamente
+
+                    //Busca pelo próximo uso da página
+                    for (int i = currentTime + 1; i < references.Length; i++)
+                    {
+                        if (references[i] == page.id)
+                        {
+                            nextUseTime = i;
+                            break;
+                        }
+                    }
+
+                    //se a página nunca será usada novamente, escolhe-a como vítima
+                    if (nextUseTime == -1)
+                    {
+                        victim = page;
+                        break;
+                    }
+
+                    //encontra a página com o uso mais distante no futuro
+                    if (nextUseTime > farthestAccessTime)
+                    {
+                        farthestAccessTime = nextUseTime;
+                        victim = page;
+                    }
+                }
+                //remove a página vítima
+                frames.Remove(victim);//
+
+                //adiciona a nova página
+                PageEntry replacementPage = new PageEntry();
+                replacementPage.id = pageId;
+                replacementPage.loadTime = currentTime;
+                replacementPage.lastAccessedTime = currentTime;
+
+                frames.Add(replacementPage);
             }
         }
     }
