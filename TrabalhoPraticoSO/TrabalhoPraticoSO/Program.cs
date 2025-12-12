@@ -7,9 +7,26 @@ namespace DemandPagingSimulator
     {
         static void Main(string[] args)
         {
-            int maxFrames = 3; // Definindo o número máximo de frames na memória
 
-            int[] pageReferences = { 1, 2, 3, 1, 4, 2, 1, 3, 2, 1, 4, 3 };
+            //parametros para teste
+            int physicalMemorySize = 4096; // Tamanho da memória física
+            int virtualMemorySize = 16384; // Tamanho da memória virtual
+            string architecture = "x86"; // Arquitetura do sistema
+            int pageNumber = 16; // Número de páginas
+
+            //caucular o tamanho da página
+            int pageSize = virtualMemorySize / pageNumber;
+
+            Console.WriteLine("Tamanho da pagina inferido: " + pageSize + " bytes");
+
+            //caucular o número de frames na memória física
+            int maxFrames = physicalMemorySize / pageSize;
+            Console.WriteLine("Número máximo de frames na memória: " + maxFrames);
+
+            //int maxFrames = 4; // Definindo o número máximo de frames na memória
+
+
+            int[] pageReferences = { 0, 1, 2, 3, 0, 1, 4, 0 };
 
             //FIFO
             MemoryManager memoryManagerFIFO = new MemoryManager();
@@ -91,6 +108,8 @@ namespace DemandPagingSimulator
 
             //contador de Page Faults
             public int pageFaultCount = 0;
+
+
 
 
             //print frames in memory
@@ -322,8 +341,8 @@ namespace DemandPagingSimulator
                 }
 
                 // memória cheia, precisa substituir uma página
+                PageEntry victim = frames[0];
                 int farthestAccessTime = -1;
-                PageEntry victim = null;
 
                 foreach (var page in frames)
                 {
