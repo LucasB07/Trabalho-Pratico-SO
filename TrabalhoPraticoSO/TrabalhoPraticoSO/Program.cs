@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DemandPagingSimulator
 {
     class Program
     {
+
         static void Main(string[] args)
         {
 
@@ -37,13 +39,21 @@ namespace DemandPagingSimulator
             int currentTimeFIFO = 0;
 
             Console.WriteLine("FIFO:");
+
+            Stopwatch stopwatchFIFO = new Stopwatch();
+            stopwatchFIFO.Start();
+
             foreach (int pageId in pageReferences)
             {
                 memoryManagerFIFO.accessPageFIFO(pageId, currentTimeFIFO);
                 memoryManagerFIFO.PrintFrames();
                 currentTimeFIFO++;
             }
-            //print page fult do FIFO
+
+            stopwatchFIFO.Stop();
+            double TimeInSecondsFIFO = stopwatchFIFO.Elapsed.TotalSeconds;
+
+            Console.WriteLine("Tempo de Execução(FIFO): " + Math.Round(TimeInSecondsFIFO));
             Console.WriteLine("Total Page Faults (FIFO): " + memoryManagerFIFO.pageFaultCount);
 
 
@@ -54,13 +64,20 @@ namespace DemandPagingSimulator
             int currentTimeLRU = 0;
 
             Console.WriteLine("LRU:");
+
+            Stopwatch stopwatchLRU = new Stopwatch();
+            stopwatchLRU.Start();
+
             foreach (int pageId in pageReferences)
             {
                 memoryManagerLRU.accessPageLRU(pageId, currentTimeLRU);
                 memoryManagerLRU.PrintFrames();
                 currentTimeLRU++;
             }
-            //print page fult do LRU
+            stopwatchLRU.Stop();
+            double TimeInSecondsLRU = stopwatchLRU.Elapsed.TotalSeconds;
+
+            Console.WriteLine("Tempo de Execução(LRU): " + Math.Round(TimeInSecondsLRU));
             Console.WriteLine("Total Page Faults (LRU): " + memoryManagerLRU.pageFaultCount);
 
             //RAND
@@ -70,13 +87,21 @@ namespace DemandPagingSimulator
             int currentTimeRAND = 0;
 
             Console.WriteLine("RAND");
+
+            Stopwatch stopwatchRAND = new Stopwatch();
+            stopwatchRAND.Start();
+
             foreach (int pageId in pageReferences)
             {
                 memoryManagerRAND.accessPageRAND(pageId, currentTimeRAND);
                 memoryManagerRAND.PrintFrames();
                 currentTimeRAND++;
             }
-            //print page fult do RAND
+
+            stopwatchRAND.Stop();
+            double TimeInSecondsRAND = stopwatchRAND.Elapsed.TotalSeconds;
+
+            Console.WriteLine("Tempo de Execução(RAND): " + Math.Round(TimeInSecondsRAND));
             Console.WriteLine("Total Page Faults (RAND): " + memoryManagerRAND.pageFaultCount);
 
             //OPT
@@ -86,13 +111,21 @@ namespace DemandPagingSimulator
             int currentTimeOPT = 0;
 
             Console.WriteLine("OPT:");
+
+            Stopwatch stopwatchOPT = new Stopwatch();
+            stopwatchOPT.Start();
+
             foreach (int pageId in pageReferences)
             {
                 memoryManagerOPT.accessPageOPT(pageId, currentTimeOPT, pageReferences);
                 memoryManagerOPT.PrintFrames();
                 currentTimeOPT++;
             }
-            //print page fult do OPT
+
+            stopwatchOPT.Stop();
+            double TimeInSecondsOPT = stopwatchOPT.Elapsed.TotalSeconds;
+
+            Console.WriteLine("Tempo de Execução(OPT): " + Math.Round(TimeInSecondsOPT));
             Console.WriteLine("Total Page Faults (OPT): " + memoryManagerOPT.pageFaultCount);
 
         }
@@ -110,9 +143,6 @@ namespace DemandPagingSimulator
 
             //contador de Page Faults
             public int pageFaultCount = 0;
-
-
-
 
             //print frames in memory
             public void PrintFrames()
