@@ -46,15 +46,17 @@ namespace DemandPagingSimulator
             foreach (int pageId in pageReferences)
             {
                 memoryManagerFIFO.accessPageFIFO(pageId, currentTimeFIFO);
-                memoryManagerFIFO.PrintFrames();
                 currentTimeFIFO++;
             }
 
             stopwatchFIFO.Stop();
             double TimeInSecondsFIFO = stopwatchFIFO.Elapsed.TotalSeconds;
 
-            Console.WriteLine("Tempo de Execução(FIFO): " + Math.Round(TimeInSecondsFIFO));
-            Console.WriteLine("Total Page Faults (FIFO): " + memoryManagerFIFO.pageFaultCount);
+            Console.WriteLine("Tempo de Execução: " + Math.Round(TimeInSecondsFIFO));
+            Console.WriteLine("Total Page Faults: " + memoryManagerFIFO.pageFaultCount);
+            string swapStateFIFO = memoryManagerFIFO.CalculateFinalSwapState();
+            Console.WriteLine("Estado final do Swap: " + swapStateFIFO);
+
 
 
             //LRU
@@ -71,14 +73,15 @@ namespace DemandPagingSimulator
             foreach (int pageId in pageReferences)
             {
                 memoryManagerLRU.accessPageLRU(pageId, currentTimeLRU);
-                memoryManagerLRU.PrintFrames();
                 currentTimeLRU++;
             }
             stopwatchLRU.Stop();
             double TimeInSecondsLRU = stopwatchLRU.Elapsed.TotalSeconds;
 
-            Console.WriteLine("Tempo de Execução(LRU): " + Math.Round(TimeInSecondsLRU));
-            Console.WriteLine("Total Page Faults (LRU): " + memoryManagerLRU.pageFaultCount);
+            Console.WriteLine("Tempo de Execução: " + Math.Round(TimeInSecondsLRU));
+            Console.WriteLine("Total Page Faults: " + memoryManagerLRU.pageFaultCount);
+            string swapStateLRU = memoryManagerLRU.CalculateFinalSwapState();
+            Console.WriteLine("Estado final do Swap: " + swapStateLRU);
 
             //RAND
             MemoryManager memoryManagerRAND = new MemoryManager();
@@ -94,15 +97,16 @@ namespace DemandPagingSimulator
             foreach (int pageId in pageReferences)
             {
                 memoryManagerRAND.accessPageRAND(pageId, currentTimeRAND);
-                memoryManagerRAND.PrintFrames();
                 currentTimeRAND++;
             }
 
             stopwatchRAND.Stop();
             double TimeInSecondsRAND = stopwatchRAND.Elapsed.TotalSeconds;
 
-            Console.WriteLine("Tempo de Execução(RAND): " + Math.Round(TimeInSecondsRAND));
-            Console.WriteLine("Total Page Faults (RAND): " + memoryManagerRAND.pageFaultCount);
+            Console.WriteLine("Tempo de Execução: " + Math.Round(TimeInSecondsRAND));
+            Console.WriteLine("Total Page Faults: " + memoryManagerRAND.pageFaultCount);
+            string swapStateRAND = memoryManagerRAND.CalculateFinalSwapState();
+            Console.WriteLine("Estado final do Swap: " + swapStateRAND);
 
             //OPT
             MemoryManager memoryManagerOPT = new MemoryManager();
@@ -118,15 +122,16 @@ namespace DemandPagingSimulator
             foreach (int pageId in pageReferences)
             {
                 memoryManagerOPT.accessPageOPT(pageId, currentTimeOPT, pageReferences);
-                memoryManagerOPT.PrintFrames();
                 currentTimeOPT++;
             }
 
             stopwatchOPT.Stop();
             double TimeInSecondsOPT = stopwatchOPT.Elapsed.TotalSeconds;
 
-            Console.WriteLine("Tempo de Execução(OPT): " + Math.Round(TimeInSecondsOPT));
-            Console.WriteLine("Total Page Faults (OPT): " + memoryManagerOPT.pageFaultCount);
+            Console.WriteLine("Tempo de Execução: " + Math.Round(TimeInSecondsOPT));
+            Console.WriteLine("Total Page Faults: " + memoryManagerOPT.pageFaultCount);
+            string swapStateOPT = memoryManagerOPT.CalculateFinalSwapState();
+            Console.WriteLine("Estado final do Swap: " + swapStateOPT);
 
         }
 
@@ -143,6 +148,33 @@ namespace DemandPagingSimulator
 
             //contador de Page Faults
             public int pageFaultCount = 0;
+
+            //conjunto de todas as páginas acessadas
+            public HashSet<int> allAccessedPages = new HashSet<int>();
+
+            //metodo para caucular estado final do Swap
+            public string CalculateFinalSwapState() 
+            {
+                // Coleção para armazenar as páginas que estão no Swap
+                HashSet<int> swapPages = new HashSet<int>();
+
+                //Obtém as páginas que estão atualmente na memória física
+                HashSet<int> pagesInMemory = new HashSet<int>();
+                foreach (var page in frames)
+                {
+                    pagesInMemory.Add(page.id);
+                }
+
+                //Itera por todas as páginas referenciadas
+                foreach (int pageId in allAccessedPages)
+                {
+                    if (!pagesInMemory.Contains(pageId))
+                    {
+                        swapPages.Add(pageId);
+                    }
+                }
+                return string.Join(" ", swapPages);
+            }
 
             //print frames in memory
             public void PrintFrames()
@@ -164,6 +196,7 @@ namespace DemandPagingSimulator
             //Metodo para FIFO
             public void accessPageFIFO(int pageId, int currentTime)
             {
+                allAccessedPages.Add(pageId);
                 PageEntry found = null;
 
                 // Verifica se a página já está na memória
@@ -225,6 +258,7 @@ namespace DemandPagingSimulator
             //Metodo para LRU
             public void accessPageLRU(int pageId, int currentTime)
             {
+                allAccessedPages.Add(pageId);
                 PageEntry found = null;
 
                 // Verifica se a página já está na memória
@@ -283,6 +317,7 @@ namespace DemandPagingSimulator
             //Meto para RAND
             public void accessPageRAND(int pageId, int currentTime)
             {
+                allAccessedPages.Add(pageId);
                 PageEntry found = null;
 
                 // Verifica se a página já está na memória
@@ -339,6 +374,7 @@ namespace DemandPagingSimulator
             //Metodo para OPT
             public void accessPageOPT(int pageId, int currentTime, int[] references)
             {
+                allAccessedPages.Add(pageId);
                 PageEntry found = null;
 
                 // Verifica se a página já está na memória
