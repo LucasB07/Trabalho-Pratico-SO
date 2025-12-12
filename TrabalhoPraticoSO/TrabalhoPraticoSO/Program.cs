@@ -10,7 +10,7 @@ namespace DemandPagingSimulator
             //MemoryManager memoryManager = new MemoryManager();
             int maxFrames = 3; // Definindo o número máximo de frames na memória
 
-            int[] pageReferences = { 1, 2, 3, 1, 4, 2, 3, 2, 1, 4 };
+            int[] pageReferences = { 1, 2, 3, 1, 4, 2, 1, 3, 2, 1, 4 };
 
             //FIFO
             MemoryManager memoryManagerFIFO = new MemoryManager();
@@ -41,6 +41,20 @@ namespace DemandPagingSimulator
                 currentTimeLRU++;
             }
 
+            //RAND
+            MemoryManager memoryManagerRAND = new MemoryManager();
+            memoryManagerRAND.maxFrames = maxFrames;
+
+            int currentTimeRAND = 0;
+
+            Console.WriteLine("RAND");
+            foreach (int pageId in pageReferences)
+            {
+                memoryManagerRAND.accessPageRAND(pageId, currentTimeRAND);
+                memoryManagerRAND.PrintFrames();
+                currentTimeRAND++;
+            }
+
         }
 
         class PageEntry
@@ -66,7 +80,62 @@ namespace DemandPagingSimulator
             public int maxFrames;
             public List<PageEntry> frames = new List<PageEntry>();
 
-            //Metodo auxiliar para FIFO
+            //Meto para RAND
+            public void accessPageRAND(int pageId, int currentTime)
+            {
+                PageEntry found = null;
+
+                // Verifica se a página já está na memória
+                foreach (var page in frames)
+                {
+                    if (page.id == pageId)
+                    {
+                        found = page;
+                        break;
+                    }
+                }
+
+                if (found != null)
+                {
+                    found.lastAccessedTime = currentTime;
+                    return;
+                }
+
+                //PAGE FAULT
+
+                //ainda há espaço na memória
+                if (frames.Count < maxFrames)
+                {
+                    PageEntry newPage = new PageEntry();
+                    newPage.id = pageId;
+                    newPage.loadTime = currentTime;
+                    newPage.lastAccessedTime = currentTime;
+
+                    frames.Add(newPage);
+                    return;
+                }
+
+                // memória cheia, precisa substituir uma página
+                Random random = new Random();
+
+                int victimIndex = random.Next(frames.Count);
+                PageEntry victim = frames[victimIndex];
+
+                //remove a página vítima
+                frames.Remove(victim);
+
+                //adiciona a nova página
+                PageEntry replacementPage = new PageEntry();
+                replacementPage.id = pageId;
+                replacementPage.loadTime = currentTime;
+                replacementPage.lastAccessedTime = currentTime;
+
+                frames.Add(replacementPage);
+                return;
+
+            }
+
+            //Metodo para FIFO
             public void accessPageFIFO(int pageId, int currentTime)
             {
                 PageEntry found = null;
@@ -83,6 +152,7 @@ namespace DemandPagingSimulator
 
                 if (found != null)
                 {
+                    found.lastAccessedTime = currentTime;
                     return;
                 }
 
@@ -124,7 +194,7 @@ namespace DemandPagingSimulator
 
             }
 
-            //Metodo auxiliar para LRU
+            //Metodo para LRU
             public void accessPageLRU(int pageId, int currentTime)
             {
                 PageEntry found = null;
