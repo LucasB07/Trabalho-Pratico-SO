@@ -9,7 +9,7 @@ namespace DemandPagingSimulator
         {
             int maxFrames = 3; // Definindo o número máximo de frames na memória
 
-            int[] pageReferences = { 1, 2, 3, 1, 4, 2, 1, 3, 2, 1, 4 };
+            int[] pageReferences = { 1, 2, 3, 1, 4, 2, 1, 3, 2, 1, 4, 3 };
 
             //FIFO
             MemoryManager memoryManagerFIFO = new MemoryManager();
@@ -24,6 +24,8 @@ namespace DemandPagingSimulator
                 memoryManagerFIFO.PrintFrames();
                 currentTimeFIFO++;
             }
+            //print page fult do FIFO
+            Console.WriteLine("Total Page Faults (FIFO): " + memoryManagerFIFO.pageFaultCount);
 
 
             //LRU
@@ -39,6 +41,8 @@ namespace DemandPagingSimulator
                 memoryManagerLRU.PrintFrames();
                 currentTimeLRU++;
             }
+            //print page fult do LRU
+            Console.WriteLine("Total Page Faults (LRU): " + memoryManagerLRU.pageFaultCount);
 
             //RAND
             MemoryManager memoryManagerRAND = new MemoryManager();
@@ -53,6 +57,8 @@ namespace DemandPagingSimulator
                 memoryManagerRAND.PrintFrames();
                 currentTimeRAND++;
             }
+            //print page fult do RAND
+            Console.WriteLine("Total Page Faults (RAND): " + memoryManagerRAND.pageFaultCount);
 
             //OPT
             MemoryManager memoryManagerOPT = new MemoryManager();
@@ -67,6 +73,8 @@ namespace DemandPagingSimulator
                 memoryManagerOPT.PrintFrames();
                 currentTimeOPT++;
             }
+            //print page fult do OPT
+            Console.WriteLine("Total Page Faults (OPT): " + memoryManagerOPT.pageFaultCount);
 
         }
 
