@@ -23,7 +23,9 @@ namespace DemandPagingSimulator
             int maxFrames = physicalMemorySize / pageSize;
             Console.WriteLine("Número máximo de frames na memória: " + maxFrames);
 
-            //int maxFrames = 4; // Definindo o número máximo de frames na memória
+            //caucular o tamanho do Swap necessário
+            int swapSize = (pageNumber - maxFrames) * pageSize;
+            Console.WriteLine("Tamanho do Swap necessário: " + swapSize + " bytes \n");
 
 
             int[] pageReferences = { 0, 1, 2, 3, 0, 1, 4, 0 };

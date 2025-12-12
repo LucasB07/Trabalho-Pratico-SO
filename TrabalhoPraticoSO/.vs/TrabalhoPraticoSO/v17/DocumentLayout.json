@@ -13,7 +13,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
+          "DockedWidth": 394,
           "SelectedChildIndex": 0,
           "Children": [
             {
@@ -24,10 +24,24 @@
               "RelativeDocumentMoniker": "TrabalhoPraticoSO\\Program.cs",
               "ToolTip": "D:\\Users\\Windows\\Documents\\git kraken\\Trabalho-Pratico-SO\\TrabalhoPraticoSO\\TrabalhoPraticoSO\\Program.cs",
               "RelativeToolTip": "TrabalhoPraticoSO\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAABSAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABsAAABXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T21:13:19.536Z",
               "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 6,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             }
           ]
         }
